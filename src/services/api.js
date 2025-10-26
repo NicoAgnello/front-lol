@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken, clearToken } from "../utils/auth";
+import { getDbChoice } from "../utils/dbChoice"; // 👈 nuevo
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -8,6 +9,11 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = getToken();
   if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  // 👇 prefijo /mysql o /mongo según elección
+  const db = getDbChoice();
+  config.baseURL = `${import.meta.env.VITE_API_BASE_URL}/${db}`;
+
   return config;
 });
 

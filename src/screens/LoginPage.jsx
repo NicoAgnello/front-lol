@@ -15,20 +15,11 @@ export default function LoginPage() {
     setLoading(true);
     setErr("");
     try {
-      // ajustá la URL si tu back usa otra ruta
-      const { data } = await api.post("/api/auth/login", {
-        usuario,
-        password, // por si tu back espera "password"
-        pssword: password, // por si tu back espera "pssword"
-      });
-      if (data?.token) {
-        setToken(data.token);
-        navigate("/campeones", { replace: true });
-      } else {
-        setErr("Respuesta inesperada del servidor");
-      }
-    } catch (e) {
-      setErr(e?.response?.data?.message || "Credenciales inválidas");
+      const { data } = await api.post("/login", { usuario, password }); // 👈
+      setToken(data.token);
+      navigate("/campeones");
+    } catch (err) {
+      setErr("Credenciales inválidas o usuario inactivo");
     } finally {
       setLoading(false);
     }

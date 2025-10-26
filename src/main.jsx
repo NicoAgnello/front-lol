@@ -4,9 +4,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./screens/LoginPage";
 import ChampionsPage from "./screens/ChampionsPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import DbPicker from "./screens/DbPicker"; // 👈
 import "./index.css";
 
 const router = createBrowserRouter([
+  { path: "/db", element: <DbPicker /> }, // 👈 nueva
   { path: "/login", element: <LoginPage /> },
   {
     path: "/",
@@ -16,7 +18,6 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  // alias más explícito
   {
     path: "/campeones",
     element: (
