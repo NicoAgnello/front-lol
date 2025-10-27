@@ -1,7 +1,10 @@
+// ChampionCard.jsx
 import RoleBadge from "./RoleBadge";
 
 export default function ChampionCard({ c }) {
-  const imgUrl = `${import.meta.env.VITE_API_BASE_URL}${c.imagen_url}`;
+  const backendHost = window.location.hostname;
+  const imgUrl = `http://${backendHost}:3000${c.imagen_url}`;
+
   return (
     <div className="overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-md transition">
       <div className="aspect-[4/3] overflow-hidden">
@@ -11,10 +14,7 @@ export default function ChampionCard({ c }) {
           onError={(e) => {
             if (e.currentTarget.dataset.fallback === "1") return;
             e.currentTarget.dataset.fallback = "1";
-
-            e.currentTarget.src = `${
-              import.meta.env.VITE_API_BASE_URL
-            }/public/img/campeones/placeholder.avif`;
+            e.currentTarget.src = `http://${backendHost}:3000/public/img/campeones/placeholder.avif`;
           }}
         />
       </div>
